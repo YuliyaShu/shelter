@@ -1,2 +1,2 @@
 # shelter
-https://yuliyashu.github.io/shelter/main/index.html
+https://yuliyashu.github.io/shelter/pages/main/index.html
