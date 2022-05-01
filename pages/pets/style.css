@@ -250,7 +250,7 @@ a {
 	display: none;
 }
 
-h1 {
+h1, .h-burger {
 	margin-bottom: 10px;
 	font-family: 'Georgia';
 	font-style: normal;
