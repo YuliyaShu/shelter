@@ -360,6 +360,16 @@ h4 {
 	
 }
 
+.our-friends-whole-trio_hide-right {
+	transition: 2s ease-in-out;
+	transform: translate(-5000px, 0px)
+}
+
+.our-friends-whole-trio_hide-left {
+	transition: 2s ease-in-out;
+	transform: translate(5000px, 0px)
+}
+
 .our-friends-block {
 	display: flex;
 	flex-direction: column;
