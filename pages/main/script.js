@@ -191,6 +191,9 @@ function createNewSliderRight(x) {
 }
 
 function createAdaptiveNewSliderRight() {
+  document.querySelector('.our-friends-whole-trio').classList.add('our-friends-whole-trio_hide-right');
+  setTimeout(() => {
+    document.querySelector('.our-friends-whole-trio').classList.remove('our-friends-whole-trio_hide-right');
     if (window.screen.availWidth >= 1280) {
       document.querySelector('.our-friends-whole-trio').innerHTML = '';
       createNewSliderRight(2);
@@ -202,7 +205,8 @@ function createAdaptiveNewSliderRight() {
     if (window.screen.availWidth < 768) {
       document.querySelector('.our-friends-whole-trio').innerHTML = '';
       createNewSliderRight(0);
-    }
+    }}, 1000);
+  
 }
   
 
@@ -226,6 +230,9 @@ function createNewSliderLeft(x) {
 }
 
 function createAdaptiveNewSliderLeft() {
+  document.querySelector('.our-friends-whole-trio').classList.add('our-friends-whole-trio_hide-left');
+  setTimeout(() => {
+    document.querySelector('.our-friends-whole-trio').classList.remove('our-friends-whole-trio_hide-left');
     if (window.screen.availWidth >= 1280) {
     document.querySelector('.our-friends-whole-trio').innerHTML = '';
     createNewSliderLeft(2);
@@ -237,7 +244,7 @@ function createAdaptiveNewSliderLeft() {
     if (window.screen.availWidth < 768) {
     document.querySelector('.our-friends-whole-trio').innerHTML = '';
     createNewSliderLeft(0);
-    }
+    }}, 1000);
 }
 
 
