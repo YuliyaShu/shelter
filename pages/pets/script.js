@@ -639,6 +639,7 @@ function createAdaptiveSliderFirst() {
   if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768)  createSliderFirst(5);
   if (window.screen.availWidth < 768) createSliderFirst(2);
 }
+
 createAdaptiveSliderFirst();
 createButtons();
 
@@ -678,11 +679,8 @@ function createButtons() {
 }
 
 
-
-
 // SLIDER CHANGE
 buttonRight.addEventListener('click', (event) => {
-  console.log('buttonRight ' + lastIndex)
   lastIndex = lastIndex + 1;
   createAdaptiveSlider(lastIndex);
   if (lastIndex === 47) {
@@ -709,11 +707,9 @@ buttonRight.addEventListener('click', (event) => {
     buttonLeft.disabled = false;
   }
   changePageNumber();
-  
 });
 
 buttonRightEnd.addEventListener('click', (event) => {
-  
   if (window.screen.availWidth >= 1280) {
     lastIndex = sliderPets.length - 8;
     buttonCurrentPage.textContent = '6';
@@ -738,7 +734,6 @@ buttonRightEnd.addEventListener('click', (event) => {
     buttonLeft.style.cursor = 'pointer';
     buttonLeft.disabled = false;
 
-
   if (lastIndex === 47) {
     buttonRight.disabled = true;
     buttonRight.style.cursor = 'default';
@@ -751,26 +746,20 @@ buttonRightEnd.addEventListener('click', (event) => {
     buttonRightEnd.classList.add('slider-button1');
   };
   popupClickEvent();
-  console.log('RightEnd ' + lastIndex)
 });
 
 buttonLeft.addEventListener('click', (event) => {
-  console.log('buttonLeft start ' + lastIndex)
   if (window.screen.availWidth >= 1280) {
     lastIndex = lastIndex - 15;
-    console.log('xxxxxxxxx ' + lastIndex)
   }
   if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768)  {
     lastIndex = lastIndex - 11;
-    console.log('yyyyyyyyy ' + lastIndex)
-    
   }
   if (window.screen.availWidth < 768) {
     lastIndex = lastIndex - 5;
   }
   
   createAdaptiveSliderLeft(lastIndex);
-  console.log('buttonLeft center ' + lastIndex)
    if (lastIndex > 0 && lastIndex < 47) {
     buttonLeftEnd.classList.add('slider-button4');
     buttonLeftEnd.classList.remove('slider-button1');
@@ -820,7 +809,6 @@ buttonLeftEnd.addEventListener('click', (event) => {
     buttonLeftEnd.style.cursor = 'default';
     buttonLeftEnd.disabled = true;
 
-
     buttonLeft.classList.add('slider-button2');
     buttonLeft.classList.remove('slider-button4');
     buttonLeft.style.cursor = 'default';
@@ -837,7 +825,6 @@ buttonLeftEnd.addEventListener('click', (event) => {
     buttonRightEnd.classList.add('slider-button5');
 
     popupClickEvent();
-    console.log('LeftEnd ' + lastIndex)
 });
 
 
@@ -871,8 +858,8 @@ function changePageNumber() {
       default:
         buttonCurrentPage.textContent = '6';
     }
-    
   };
+
   if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768) {
     switch(lastIndex) {
       case 0:
@@ -905,6 +892,7 @@ function changePageNumber() {
         buttonCurrentPage.textContent = '8';
     }
   }
+
   if (window.screen.availWidth < 768) {
     switch(lastIndex) {
       case 0:
@@ -1082,6 +1070,7 @@ function bodyPopupOverlayHide() {
   popupVisible.children[0].innerHTML = '';
   popupVisible.children[2].innerHTML = '';
 }
+
 bodyPopup.addEventListener('click', bodyPopupOverlayHide);
 emptyCell1.addEventListener('click', bodyPopupOverlayHide);
 emptyCell2.addEventListener('click', bodyPopupOverlayHide);
