@@ -158,7 +158,6 @@ function createSlide(z) {
 
 function createSlider(x) {
   let arr = randomArray(x + 1);
-  console.log(arr);
     for (let unit of arr) {
       createSlide(unit);
     }
