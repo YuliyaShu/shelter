@@ -115,8 +115,22 @@ const slider = document.querySelector('.our-friends-whole-trio');
 let lastIndex;
 
 // slider create 
+
+let newArr = []; 
+let previousArr = [];
+function randomArray(n) { 
+  newArr = [];
+  for (let i = 0; newArr.length < n; i++) {
+    let index = Math.floor(Math.random() * 8);
+    if (!newArr.includes(index) && !previousArr.includes(index)) newArr.push(index); 
+  }
+  previousArr = newArr.slice(); 
+  return newArr;
+} 
+
+
+
 function createSlide(z) {
-  
       let sliderItemI = 'sliderItem' + z;
       sliderItemI = document.createElement('div'); // create element
       slider.append(sliderItemI); // add element to slider Item container
@@ -143,8 +157,9 @@ function createSlide(z) {
 }
 
 function createSlider(x) {
-    for (let i = 0; i <= x; i++) {
-      createSlide(i);
+  let arr = randomArray(x + 1);
+    for (let unit of arr) {
+      createSlide(unit);
     }
 }
   

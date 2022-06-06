@@ -539,7 +539,7 @@ const sliderPets = [
   ]
 
 const slider = document.querySelector('.slider');
-let lastIndex = 0;
+let lastIndex = 14;
 const sliderPagination = document.querySelector('.slider-buttons');
 let buttonLeftEnd;
 let buttonLeft;
@@ -547,6 +547,24 @@ let buttonCurrentPage;
 let buttonRight;
 let buttonRightEnd;
 
+
+function randomArray(n) { 
+  let newArr = [];
+  let index;
+
+  while (newArr.length < n) {
+    index = Math.floor(Math.random() * n);
+    if (!newArr.includes(index)) newArr.push(index); 
+  }
+  return newArr;
+} 
+
+function createSliderFirst(sliderSize) {
+    let arr = randomArray(sliderSize + 1);
+      for (let unit of arr) {
+        createSlide(unit);
+      }
+  }
 
 function createSlide(z) {
   let sliderItemI = 'sliderItem' + z;
@@ -569,64 +587,94 @@ function createSlide(z) {
   sliderButton.classList.add('slider-button');
   sliderButton.textContent = 'Learn more';
 
-
   lastIndex = z;
-  
-
 }
 
 function createSlider(sliderSize, firstPetIndex) {
   for (let i = firstPetIndex; i <= sliderSize + firstPetIndex; i++) {
     createSlide(i);
-    
   }
-  
 }
 
 function createAdaptiveSlider(firstIndex) {
   slider.innerHTML = '';
-  if (window.screen.availWidth >= 1280) createSlider(7, firstIndex);
-  if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768)  createSlider(5, firstIndex);
-  if (window.screen.availWidth < 768) createSlider(2, firstIndex);
+  if (window.screen.availWidth >= 1280 && firstIndex < 8) {
+    createSlider(7, 8);
+  } else if (window.screen.availWidth >= 1280) {
+    createSlider(7, firstIndex);
+  }
+
+  if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768 && firstIndex < 6) {
+    createSlider(5, 6);
+  } else if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768) {
+    createSlider(5, firstIndex);
+  }
+
+  if (window.screen.availWidth < 768 && firstIndex < 3) {
+    createSlider(2, 3);
+  } else if (window.screen.availWidth < 768) {
+    createSlider(2, firstIndex);
+  }
 }
-// let randomStartFirstIndex = Math.floor(Math.random() * 40);
-// console.log(randomStartFirstIndex);
-createAdaptiveSlider(0);
+
+function createAdaptiveSliderLeft(firstIndex) {
+  slider.innerHTML = '';
+  if (window.screen.availWidth >= 1280) {
+    createSlider(7, firstIndex);
+  }
+
+  if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768) {
+    createSlider(5, firstIndex);
+  }
+
+  if (window.screen.availWidth < 768) {
+    createSlider(2, firstIndex);
+  }
+}
+
+
+function createAdaptiveSliderFirst() {
+  slider.innerHTML = '';
+  if (window.screen.availWidth >= 1280) createSliderFirst(7);
+  if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768)  createSliderFirst(5);
+  if (window.screen.availWidth < 768) createSliderFirst(2);
+}
+createAdaptiveSliderFirst();
 createButtons();
 
 
 //pagination buttons
 
 function createButtons() {
-buttonLeftEnd = document.createElement('button');
-sliderPagination.append(buttonLeftEnd);
-buttonLeftEnd.classList.add('slider-button1');
-buttonLeftEnd.textContent = '<<';
-buttonLeftEnd.disabled = true;
+  buttonLeftEnd = document.createElement('button');
+  sliderPagination.append(buttonLeftEnd);
+  buttonLeftEnd.classList.add('slider-button1');
+  buttonLeftEnd.textContent = '<<';
+  buttonLeftEnd.disabled = true;
 
-buttonLeft = document.createElement('button');
-sliderPagination.append(buttonLeft);
-buttonLeft.classList.add('slider-button2');
-buttonLeft.textContent = '<';
-buttonLeft.disabled = true;
+  buttonLeft = document.createElement('button');
+  sliderPagination.append(buttonLeft);
+  buttonLeft.classList.add('slider-button2');
+  buttonLeft.textContent = '<';
+  buttonLeft.disabled = true;
 
-buttonCurrentPage = document.createElement('button');
-sliderPagination.append(buttonCurrentPage);
-buttonCurrentPage.classList.add('slider-button3');
-buttonCurrentPage.textContent = '1';
-buttonCurrentPage.disabled;
+  buttonCurrentPage = document.createElement('button');
+  sliderPagination.append(buttonCurrentPage);
+  buttonCurrentPage.classList.add('slider-button3');
+  buttonCurrentPage.textContent = '1';
+  buttonCurrentPage.disabled;
 
-buttonRight = document.createElement('button');
-sliderPagination.append(buttonRight);
-buttonRight.classList.add('slider-button4');
-buttonRight.textContent = '>';
-buttonRight.style.cursor = 'pointer';
+  buttonRight = document.createElement('button');
+  sliderPagination.append(buttonRight);
+  buttonRight.classList.add('slider-button4');
+  buttonRight.textContent = '>';
+  buttonRight.style.cursor = 'pointer';
 
-buttonRightEnd = document.createElement('button');
-sliderPagination.append(buttonRightEnd);
-buttonRightEnd.classList.add('slider-button5');
-buttonRightEnd.textContent = '>>';
-buttonRightEnd.style.cursor = 'pointer';
+  buttonRightEnd = document.createElement('button');
+  sliderPagination.append(buttonRightEnd);
+  buttonRightEnd.classList.add('slider-button5');
+  buttonRightEnd.textContent = '>>';
+  buttonRightEnd.style.cursor = 'pointer';
 }
 
 
@@ -634,6 +682,7 @@ buttonRightEnd.style.cursor = 'pointer';
 
 // SLIDER CHANGE
 buttonRight.addEventListener('click', (event) => {
+  console.log('buttonRight ' + lastIndex)
   lastIndex = lastIndex + 1;
   createAdaptiveSlider(lastIndex);
   if (lastIndex === 47) {
@@ -702,21 +751,26 @@ buttonRightEnd.addEventListener('click', (event) => {
     buttonRightEnd.classList.add('slider-button1');
   };
   popupClickEvent();
+  console.log('RightEnd ' + lastIndex)
 });
 
 buttonLeft.addEventListener('click', (event) => {
-  
+  console.log('buttonLeft start ' + lastIndex)
   if (window.screen.availWidth >= 1280) {
     lastIndex = lastIndex - 15;
+    console.log('xxxxxxxxx ' + lastIndex)
   }
   if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768)  {
     lastIndex = lastIndex - 11;
+    console.log('yyyyyyyyy ' + lastIndex)
+    
   }
   if (window.screen.availWidth < 768) {
     lastIndex = lastIndex - 5;
   }
   
-  createAdaptiveSlider(lastIndex);
+  createAdaptiveSliderLeft(lastIndex);
+  console.log('buttonLeft center ' + lastIndex)
    if (lastIndex > 0 && lastIndex < 47) {
     buttonLeftEnd.classList.add('slider-button4');
     buttonLeftEnd.classList.remove('slider-button1');
@@ -739,12 +793,13 @@ buttonLeft.addEventListener('click', (event) => {
     buttonRightEnd.disabled = false;
   }
 
-  if (lastIndex === 7) {
+  if ((window.screen.availWidth >= 1280 && lastIndex === 7)
+  || (window.screen.availWidth < 1280 && window.screen.availWidth >= 768 && lastIndex === 5)
+  || (window.screen.availWidth < 768 && lastIndex === 2)) {
     buttonLeftEnd.classList.add('slider-button1');
     buttonLeftEnd.classList.remove('slider-button4');
     buttonLeftEnd.style.cursor = 'default';
     buttonLeftEnd.disabled = true;
-
 
     buttonLeft.classList.add('slider-button2');
     buttonLeft.classList.remove('slider-button4');
@@ -759,7 +814,7 @@ buttonLeft.addEventListener('click', (event) => {
 buttonLeftEnd.addEventListener('click', (event) => {
   buttonCurrentPage.textContent = '1';
   lastIndex = 0;
-  createAdaptiveSlider(lastIndex);
+  createAdaptiveSliderLeft(lastIndex);
     buttonLeftEnd.classList.add('slider-button1');
     buttonLeftEnd.classList.remove('slider-button4');
     buttonLeftEnd.style.cursor = 'default';
@@ -782,15 +837,22 @@ buttonLeftEnd.addEventListener('click', (event) => {
     buttonRightEnd.classList.add('slider-button5');
 
     popupClickEvent();
+    console.log('LeftEnd ' + lastIndex)
 });
 
 
 function changePageNumber() {
   popupClickEvent();
   if (window.screen.availWidth >= 1280) {
-    console.log('lastIndex switch ' + lastIndex);
     let unit = lastIndex;
     switch(unit) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
       case 7:
         buttonCurrentPage.textContent = '1';
         break;
@@ -813,6 +875,11 @@ function changePageNumber() {
   };
   if (window.screen.availWidth < 1280 && window.screen.availWidth >= 768) {
     switch(lastIndex) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
       case 5:
         buttonCurrentPage.textContent = '1';
         break;
@@ -840,6 +907,8 @@ function changePageNumber() {
   }
   if (window.screen.availWidth < 768) {
     switch(lastIndex) {
+      case 0:
+      case 1:
       case 2:
         buttonCurrentPage.textContent = '1';
         break;
@@ -918,8 +987,6 @@ function popupClickEvent() {
 }
 popupClickEvent();
 
-
-
 function popUpCreate() {
   htmlBurger.classList.add('open');
   bodyPopup.classList.toggle('overlay-popup');
@@ -976,7 +1043,6 @@ function popUpCreate() {
   popupListLi4.classList.add('popup-list-li');
   popupListLi4.innerHTML = `${'Parasites:'.bold()} ${sliderPets[sliderPetsIndex].parasites}`;
 }
-
 
 
 // hover on close, when cursor on body-overlay
